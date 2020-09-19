@@ -40,19 +40,12 @@ PREV_TRADE_PASS_BUTTON_NEXT = 'input[type="image"][alt="次へ"]'
 # ホーム → 新規注文入力
 CMD_WINDOW_INFO_MATSUI_HOME = 'xwininfo,-name,松井証券【ホーム】 - Chromium'
 POSITION_REGEX = 'X:\s+(\d+)[^Y]+Y:\s+(\d+)'
-TAB_FUTURE_OP_POSITION_X, TAB_FUTURE_OP_POSITION_Y = 405, 150
-NAV_FUTURE_NEW_POSITION_X, NAV_FUTURE_NEW_POSITION_Y = 40, 235
-FUTURE_MINI_ORDER_LINK_POSITION_X, FUTURE_MINI_ORDER_LINK_POSITION_Y = 300, 970
+
 
 # 先物・オプション注文入力
-FUTURE_MINI_ORDER_RADIO_BUY_POSITION_X, FUTURE_MINI_ORDER_RADIO_BUY_POSITION_Y = 346, 550
-FUTURE_MINI_ORDER_RADIO_SELL_POSITION_X, FUTURE_MINI_ORDER_RADIO_SELL_POSITION_Y = FUTURE_MINI_ORDER_RADIO_BUY_POSITION_X, FUTURE_MINI_ORDER_RADIO_BUY_POSITION_Y + 23
-FUTURE_MINI_ORDER_SHEET_POSITION_X, FUTURE_MINI_ORDER_SHEET_POSITION_Y = FUTURE_MINI_ORDER_RADIO_BUY_POSITION_X + 134, FUTURE_MINI_ORDER_RADIO_BUY_POSITION_Y + 58
-FUTURE_MINI_ORDER_MARKET_POSITION_X, FUTURE_MINI_ORDER_MARKET_POSITION_Y = FUTURE_MINI_ORDER_RADIO_BUY_POSITION_X, FUTURE_MINI_ORDER_RADIO_BUY_POSITION_Y + 118
-FUTURE_MINI_ORDER_CONFIRM_POSITION_X, FUTURE_MINI_ORDER_CONFIRM_POSITION_Y = FUTURE_MINI_ORDER_RADIO_BUY_POSITION_X, FUTURE_MINI_ORDER_RADIO_BUY_POSITION_Y + 370
 
 # 注文条件確認
-ORDER_CONFIRM_BUTTON_POSITION_X, ORDER_CONFIRM_BUTTON_POSITION_Y = 0, 0
+
 
 def auto_click(position_x,position_y,wait_time):
     pyautogui.click(position_x, position_y)
@@ -80,29 +73,9 @@ if __name__ == '__main__':
     prev_trade_pass_element_next_button[0].click()
     
     # ホーム → 先物OP
-    cmd_result_std = Popen(CMD_WINDOW_INFO_MATSUI_HOME.split(','),stdout = PIPE, stderr = PIPE)
-    window_position = re.search(POSITION_REGEX,str(cmd_result_std.communicate()))
-    window_positon_x,window_positon_y = int(window_position.groups()[0]) ,int(window_position.groups()[1])
-
-    tab_future_position_x, tab_future_home_position_y = window_positon_x + TAB_FUTURE_OP_POSITION_X, window_positon_y + TAB_FUTURE_OP_POSITION_Y
-    nav_future_position_x, nav_future_home_position_y = window_positon_x + NAV_FUTURE_NEW_POSITION_X, window_positon_y + NAV_FUTURE_NEW_POSITION_Y
-    link_future_mini_position_x, link_future_mini_position_y = window_positon_x + FUTURE_MINI_ORDER_LINK_POSITION_X, window_positon_y + FUTURE_MINI_ORDER_LINK_POSITION_Y
-
-    auto_click(tab_future_position_x, tab_future_home_position_y, wait_time)
-    auto_click(nav_future_position_x, nav_future_home_position_y, wait_time)
-    auto_click(link_future_mini_position_x, link_future_mini_position_y, wait_time)
+ 
 
     # 先物・オプション注文入力
-    new_radio_buy_position_x, new_radio_buy_position_y = window_positon_x + FUTURE_MINI_ORDER_RADIO_BUY_POSITION_X, window_positon_y + FUTURE_MINI_ORDER_RADIO_BUY_POSITION_Y
-    new_radio_sell_position_x, new_radio_sell_position_y = window_positon_x + FUTURE_MINI_ORDER_RADIO_SELL_POSITION_X, window_positon_y + FUTURE_MINI_ORDER_RADIO_SELL_POSITION_Y
-    sheet_num_position_x, sheet_num_position_y = window_positon_x + FUTURE_MINI_ORDER_SHEET_POSITION_X, window_positon_y + FUTURE_MINI_ORDER_SHEET_POSITION_Y
-    market_order_position_x, market_order_position_y = window_positon_x + FUTURE_MINI_ORDER_MARKET_POSITION_X, window_positon_y + FUTURE_MINI_ORDER_MARKET_POSITION_Y
-    confirm_button_mini_position_x, confirm_button_mini_position_y = window_positon_x + FUTURE_MINI_ORDER_CONFIRM_POSITION_X, window_positon_y + FUTURE_MINI_ORDER_CONFIRM_POSITION_Y
 
-    auto_click(new_radio_buy_position_x, new_radio_buy_position_y, wait_time)
-    auto_click(new_radio_sell_position_x, new_radio_sell_position_y, wait_time)
-    auto_click(sheet_num_position_x, sheet_num_position_y, wait_time)
-    auto_click(market_order_position_x, market_order_position_y, wait_time)
-    auto_click(confirm_button_mini_position_x, confirm_button_mini_position_y, wait_time)
 
     # 注文条件確認
